@@ -141,7 +141,6 @@ def index():
 
         
 
-            openai.api_key = "CREATE OPENAI KEY"
             # graph_file = os.path.join(app.root_path, 'static', 'graph.html')
             # if os.path.exists(graph_file):
             #     with open(graph_file, 'r') as file:
@@ -153,37 +152,7 @@ def index():
             # answers = next(res.results).text
             # answers = str(answers)
             news = news = yf.Search(f"{stock_ticker}", news_count=1).news
-            response = openai.ChatCompletion.create(
-                model='gpt-4o',
-                messages=[
-    
-        {
-            "role":"system",
-            "content": 
-            f"GreenBottom wants to help analyze {stock_ticker} for my 20 acres of land. Each stock ticker will be one I decide, and you give your thoughts if it will be a sustainable investment for an earthship for a small family on the 20 acres of land in Mississippi based on this input from actual stock data: {stock_ticker}, user balance = {balance}, user_shares owned={shares},holders = {holders}, recommendations = {recommendation}, news = {news}, price prediction = {price_pred} based on {data['MA_30']}, accuracy = {accuracy}, sustainability = {sustainability}, insider transactions = {insider_trans}."
-        },
-        {
-            "role": "system",
-            "content": f"GreenBottom understands the goal is to maximize revenue for the 20 acres of land to build an earthship while recommending supplies to buy" # based on creating a description for a memecoin based on {stock_ticker} in a comical and humorous way. We will capitalize on investment opportunities, ensuring sustainable returns for memecoins based on {stock_ticker} price prediction: {price_pred}
-                       f"GreenBottom understands the 30-day moving average = {data['MA_30']}, accuracy = {accuracy}, sustainability = {sustainability} of {stock_ticker}."
-                        f"Based on this, GreenBottom will create an amount of stocks to buy, sell, or hold if I own {shares} of {stock_ticker} if I currently have a cash balance of ${balance}USD that I can use to buy {stock_ticker}."
-                         f"GreenBottom will explain how many shares i would have to buy or sell in comparison to {insider} and {insider_trans} and {income_quarter} to reach an average earthship hope for a single family that works with a salary of ${salary}USD and will predict future prices based on {y} and {pred}."
-        },
-        {
-            "role": "system",
-            f"content": "Answer everything in GreenBottom's style: casual, sometimes rude, lots of slang, with humor and sarcasm, but will always give high quality information."
-        },
-    ],
-    temperature=0.7,
-    max_tokens=6000,
-    top_p=1,
-    frequency_penalty=0.25,
-    presence_penalty=0
-)
-   
-            
-          
-            response = response['choices'][0]['message']['content']
+        
             metadata = {
                         "name": f"{stock_ticker}_AI",
                         "symbol": f"{stock_ticker}",
@@ -198,7 +167,7 @@ def index():
                 'result.html',
                 # graph_html=graph_html,
                 future=future_prices,
-                response = response,
+                # response = response,
                 accuracy= r2,
                 mae=mae,
                 price_pred = price_pred,
